@@ -1,6 +1,12 @@
 # mdcal
 
-Generate calendar in Markdown table. Written in Python3.
+Generate calendar in Markdown table.
+Forked from: https://github.com/pn11/mdcal
+
+## Difference with the original:
+
+It generates links to a calendar markdown file for each day. The calendar part is hardcoded as:
+`./calendar/year/month/day.md`.
 
 ## Usage
 
@@ -166,10 +172,10 @@ $ python3 mdcal.py 1970 1
 
 2019/10
 
-|Week|Mon|Tue|Wed|Thu|Fri|Sat|Sun|
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-|40|30|1|2|3|4|5|6|
-|41|7|8|9|10|11|12|13|
-|42|14|15|16|17|18|19|20|
-|43|21|22|23|24|25|26|27|
-|44|28|29|30|31|1|2|3|
+| Week | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
+| :--: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+|  40  | 30  |  1  |  2  |  3  |  4  |  5  |  6  |
+|  41  |  7  |  8  |  9  | 10  | 11  | 12  | 13  |
+|  42  | 14  | 15  | 16  | 17  | 18  | 19  | 20  |
+|  43  | 21  | 22  | 23  | 24  | 25  | 26  | 27  |
+|  44  | 28  | 29  | 30  | 31  |  1  |  2  |  3  |
