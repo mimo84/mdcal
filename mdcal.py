@@ -26,14 +26,14 @@ def create_calendar(year, month, with_isoweek=False, start_from_Sun=False, lang=
         if with_isoweek:
             isoweek = days[0].isocalendar()[1]
             mdstr += '|' + str(isoweek) + '|' + \
-                '|'.join([str(d.day) for d in days]) + '|' + '\n'
+                '| ['.join([str(d.day) for d in days]) + '](./calendar/)' + '|' + '\n'
         else:
-            mdstr += '|' + '|'.join([str(d.day) for d in days]) + '|' + '\n'
+            mdstr += '|' + '|'.join(['[' + str(d.day) + '](./calendar/' + str(d.year) + '/' + str(d.month) + '/' + str(d.day) + '.md)' for d in days]) + '|' + '\n'
 
     return mdstr
 
 
-def print_calendar(year, month, with_isoweek=False, start_from_Sun=False, lang="en"):
+def print_calendar(year, month, with_isoweek=False, start_from_Sun=False, lang="it"):
     print('{}/{}\n'.format(year, month))
     print(create_calendar(year, month, with_isoweek, start_from_Sun, lang))
 
@@ -42,12 +42,17 @@ def get_dict(lang='en'):
     dic = {}
     colnames = ['Week', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
     colnames_ja = ['週', '月', '火', '水', '木', '金', '土', '日']
+    colnames_it = ['Settimana', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica']
+
     if lang == 'en':
         for col in colnames:
             dic[col] = col
     elif lang == 'ja':
         for col, colja in zip(colnames, colnames_ja):
             dic[col] = colja
+    elif lang == 'it':
+        for col, colit in zip(colnames, colnames_it):
+            dic[col] = colit
     else:
         for col in colnames:
             dic[col] = col
