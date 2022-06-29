@@ -2,9 +2,10 @@
 import calendar
 from datetime import datetime
 import sys
+import os
 
 
-def create_calendar(year, month, with_isoweek=False, start_from_Sun=False, lang="en"):
+def create_calendar(year, month, with_isoweek=False, start_from_Sun=False, lang="en", write_md_days=False):
     firstweekday = 6 if start_from_Sun else 0
 
     cal = calendar.Calendar(firstweekday=firstweekday)
@@ -26,16 +27,30 @@ def create_calendar(year, month, with_isoweek=False, start_from_Sun=False, lang=
         if with_isoweek:
             isoweek = days[0].isocalendar()[1]
             mdstr += '|' + str(isoweek) + '|' + \
-                '| ['.join([str(d.day) for d in days]) + '](./calendar/)' + '|' + '\n'
+                '|'.join([str(d.day) for d in days]) + '|' + '\n'
         else:
             mdstr += '|' + '|'.join(['[' + str(d.day) + '](./calendar/' + str(d.year) + '/' + str(d.month) + '/' + str(d.day) + '.md)' for d in days]) + '|' + '\n'
+
+            if write_md_days:
+                for day in days:
+                    path = f'{os.getcwd()}/calendar/{day.year}/{day.month}'
+                    if not os.path.exists(path):
+                        os.makedirs(path)
+                    filename = f'{day.day}.md'
+                    with open(os.path.join(path, filename), 'wb') as temp_file:
+                            file_str = '---\n\n'
+                            file_str += f'title: \'{calendar.month_name[day.month]} {day.day} {day.year}\'\n\n\n'
+                            file_str += f'date: \'{day.day} / {day.month} / {day.year}\'\n\n\n'
+                            file_str += '---\n'
+                            file_str += ''
+                            temp_file.write(file_str.encode())
 
     return mdstr
 
 
-def print_calendar(year, month, with_isoweek=False, start_from_Sun=False, lang="it"):
+def print_calendar(year, month, with_isoweek=False, start_from_Sun=False, lang="en"):
     print('{}/{}\n'.format(year, month))
-    print(create_calendar(year, month, with_isoweek, start_from_Sun, lang))
+    print(create_calendar(year, month, with_isoweek, start_from_Sun, lang, write_md_days=True))
 
 
 def get_dict(lang='en'):
